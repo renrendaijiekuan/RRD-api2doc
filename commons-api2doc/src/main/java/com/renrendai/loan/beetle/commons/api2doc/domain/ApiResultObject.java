@@ -1,5 +1,6 @@
 package com.renrendai.loan.beetle.commons.api2doc.domain;
 
+import com.google.common.collect.Sets;
 import com.google.gson.JsonObject;
 import com.renrendai.loan.beetle.commons.api2doc.annotations.Api2Doc;
 import com.renrendai.loan.beetle.commons.api2doc.annotations.ApiComment;
@@ -17,10 +18,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * 记录所有的结果字段，它是一个复合型
@@ -253,6 +251,17 @@ public class ApiResultObject extends ApiObject {
             totalResults.add(groupId, result);
         }
 
+        //获取变量名称
+        Field[] declaredFields = elementType.getDeclaredFields();
+        Field[] normalFields = elementType.getFields();
+        Set<String> fieldNames = new HashSet<>();
+        for (Field field : declaredFields) {
+            fieldNames.add(field.getName());
+        }
+        for (Field field : normalFields) {
+            fieldNames.add(field.getName());
+        }
+
         // 有子类型，补充子类型信息。
         for (PropertyDescriptor prop : props) {
             if (Api2DocUtils.isFilter(prop, elementType)) {
@@ -270,6 +279,11 @@ public class ApiResultObject extends ApiObject {
                 String msg = String.format("解析类[ %s ]的属性[ %s ]出错： %s",
                         elementType.getName(), fieldName, e.getMessage());
                 throw new RuntimeException(msg);
+            }
+
+            //fix 如果prop不是成员变量,将不处理
+            if (!fieldNames.contains(prop.getName())){
+                continue;
             }
 
             // 补充子类型信息。
@@ -337,6 +351,7 @@ public class ApiResultObject extends ApiObject {
                     childPropResult.setRefGroupId(refGroupId);
                 }
             } else {
+                if (subMethod == null) continue;
                 Method m = prop.getWriteMethod();
                 //set方法的泛型参数,支持一个.
                 Type[] genericParameterTypes = m.getGenericParameterTypes();
@@ -357,7 +372,7 @@ public class ApiResultObject extends ApiObject {
                                 childPropResult.setName(id);
                             } else {
                                 //复杂类型
-                                if (paramClass == JsonObject.class){
+                                if (paramClass == JsonObject.class) {
                                     continue;
                                 }
                                 childPropResult = parseResult(paramClass, totalResults);
@@ -380,7 +395,7 @@ public class ApiResultObject extends ApiObject {
         return result;
     }
 
-    private static ApiResultObject parseResult(Class<?> returnType, KeyedList<String, ApiResultObject> totalResults){
+    private static ApiResultObject parseResult(Class<?> returnType, KeyedList<String, ApiResultObject> totalResults) {
         if (returnType == null) {
             return null;
         }

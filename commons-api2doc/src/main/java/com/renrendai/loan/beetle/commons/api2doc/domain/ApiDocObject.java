@@ -140,9 +140,10 @@ public class ApiDocObject extends ApiObject {
                         }
 
                         Field childField = ReflectionUtils.findField(result.getSourceType(), child.getName());
-                        childField.setAccessible(true);
-                        ReflectionUtils.setField(childField, object, childObj);
-                        System.out.println("1");
+                        if (childField != null){
+                            childField.setAccessible(true);
+                            ReflectionUtils.setField(childField, object, childObj);
+                        }
                     } catch (Exception e) {
                         e.printStackTrace();
                     }

@@ -76,6 +76,9 @@ public class Result<T> {
         this.data = data;
     }
 
+    public void setStatus(Object o) {
+    }
+
     @Override
     public String toString() {
         return "data=" + data + " & code=" + code + " & msg=" + msg;
