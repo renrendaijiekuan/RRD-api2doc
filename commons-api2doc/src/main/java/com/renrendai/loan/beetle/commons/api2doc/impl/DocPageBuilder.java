@@ -171,7 +171,7 @@ public class DocPageBuilder {
 
             String content = freeMarker.build(mdTemplate, model);
             if (log.isInfoEnabled()) {
-                log.debug("\n{}", content);
+//                log.debug("\n{}", content);
             }
             return content;
         } catch (IOException | TemplateException e) {

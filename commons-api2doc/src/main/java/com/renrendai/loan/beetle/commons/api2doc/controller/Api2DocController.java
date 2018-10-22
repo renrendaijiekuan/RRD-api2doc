@@ -84,7 +84,7 @@ public class Api2DocController {
         model.put("p", p);
 
         if (log.isInfoEnabled()) {
-            log.info("request home.html, model:\n{}", model);
+//            log.info("request home.html, model:\n{}", model);
         }
         return "api2doc/home";
     }
