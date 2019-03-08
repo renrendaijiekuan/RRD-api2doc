@@ -12,7 +12,7 @@ Api2Doc 一共有 3 个注解：@Api2Doc、@ApiComment 及 @ApiError 。
 
 @Api2Doc 也可以修饰在方法，不过在方法上的 @Api2Doc 通常是可以省略， Api2Doc 服务会扫描这个类的所有带有 @RequestMapping 的方法， 每个这样的方法对应文档页面的左侧的二级菜单项， 菜单项的名称取 @RequestMapping 的 name 属性，当然您仍然可以在方法上用 @Api2Doc 的 name 属性进行重定义。
 
-###@ApiComment 注解详述
+### @ApiComment 注解详述
 @ApiComment 用于对 API 进行说明，它可以修饰在很多地方：
 
 修饰在类上，表示对这组 API 接口进行说明；
@@ -21,10 +21,10 @@ Api2Doc 一共有 3 个注解：@Api2Doc、@ApiComment 及 @ApiError 。
 修饰在返回类型的属性上，表示对这个 API 接口的返回字段进行说明；
 修饰在枚举项上，表示对枚举项进行说明；
 
-###@ApiError 注解详述
+### @ApiError 注解详述
 @ApiError 用于定义错误码，有的 API 方法在执行业务逻辑时会产生错误， 出错后会在返回报文包含错误码，以方便客户端根据错误码作进一步的处理， 因此也需要在 API 文档上体现错误码的说明。
 
-###@ApiParamComments
+### @ApiParamComments
 @ApiParamComments可以声明多个参数描述，注意使用此声明，将不会获取方法参数作为文档参数描述。
 
 ## Get Started
