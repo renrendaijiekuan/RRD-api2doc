@@ -352,25 +352,4 @@
             </plugin>
         </plugins>
     </build>
-
-    <distributionManagement>
-        <repository>
-            <id>releases</id>
-            <name>Release Maven Repository</name>
-            <url>http://172.16.3.35:8081/nexus/content/repositories/releases</url>
-        </repository>
-        <snapshotRepository>
-            <id>snapshots</id>
-            <name>Snapshots Maven Repository</name>
-            <url>http://172.16.3.35:8081/nexus/content/repositories/snapshots</url>
-            <uniqueVersion>false</uniqueVersion>
-        </snapshotRepository>
-    </distributionManagement>
-    <repositories>
-        <repository>
-            <id>nexus</id>
-            <name>nexus</name>
-            <url>http://172.16.3.35:8081/nexus/content/repositories/thirdparty</url>
-        </repository>
-    </repositories>
 </project>
